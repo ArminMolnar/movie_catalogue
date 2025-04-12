@@ -1,6 +1,6 @@
 <script lang="ts">
-    import PopularMovies from '../components/PopularMovies.svelte';
     import SearchMovies from '../components/SearchMovies.svelte';
+    import MovieGrid from "../components/MovieGrid.svelte";
 
     export let data: { popular: Array<{
             id: number,
@@ -16,5 +16,5 @@
 
 <section>
     <SearchMovies/>
-    <PopularMovies {popular}/>
+    <MovieGrid movies={popular} title="Népszerű filmek" />
 </section>
