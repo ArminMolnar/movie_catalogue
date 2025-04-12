@@ -1,20 +1,22 @@
 <script lang="ts">
-    export let popular: Array<{
+    export let movies: Array<{
         id: number;
         title: string;
         poster_path: string;
         vote_average: number;
         release_date: string;
     }> = [];
+    export let title: string = "";
+
     import MovieCard from "./MovieCard.svelte";
-    console.log('PopularMovies received:', popular);
+    console.log(`${title} movies received:`, movies);
 </script>
 
-<h1>Most népszerű</h1>
+<h1>{title}</h1>
 
-{#if popular && popular.length > 0}
-    <div class="popular-movies">
-        {#each popular as movie (movie.id)}
+{#if movies && movies.length > 0}
+    <div class="movies-grid">
+        {#each movies as movie (movie.id)}
             <MovieCard {movie}/>
         {/each}
     </div>
@@ -23,7 +25,7 @@
 {/if}
 
 <style>
-    .popular-movies {
+    .movies-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         grid-column-gap: 1rem;
