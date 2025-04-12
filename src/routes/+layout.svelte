@@ -57,9 +57,9 @@
 <div class="container">
     <nav class="navbar">
         <ul>
-            <li><a href="/">Főoldal</a></li>
-            <li><a href="/movieList">Filmlista</a></li>
-            <li><a href="/watchList">Watchlist</a></li>
+            <li><a href="/">Népszerű</a></li>
+            <li><a href="/movieList">Megtekintett filmek</a></li>
+            <li><a href="/watchList">Megnézendő filmek</a></li>
         </ul>
     </nav>
     <slot />
