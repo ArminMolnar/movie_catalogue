@@ -1,6 +1,15 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
     export let data;
     const { movieDetails } = data;
+
+    function goBack() {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            goto(`/search/${movieDetails.title.split(' ').join('-')}`);
+        }
+    }
 </script>
 
     <div class="movie-details">
@@ -12,7 +21,7 @@
             <p><strong>Megjelenés dátuma:</strong> {movieDetails.release_date}</p>
             <p><strong>Értékelés:</strong> {movieDetails.vote_average.toFixed(1)} <span style="color:gold; font-size: 1rem;">★</span></p>
             <p><strong>Leírás:</strong> {movieDetails.overview}</p>
-            <a href="/" class="back-button">← Vissza</a>
+            <button on:click={goBack} class="back-button">← Vissza</button>
         </div>
     </div>
 
@@ -50,6 +59,7 @@
         display: inline-block;
         margin-top: 2rem;
         text-decoration: none;
+        border-radius: 5px;
         color: black;
         font-weight: bold;
         font-size: 1.6rem;
