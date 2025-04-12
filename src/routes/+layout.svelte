@@ -15,7 +15,7 @@
     }
 
     .navbar {
-        width: 50%;
+        width: 60%;
         background-color: #333;
         border-radius: 0 0 12px 12px;
         margin: auto;
@@ -57,8 +57,9 @@
 <div class="container">
     <nav class="navbar">
         <ul>
-            <li><a href="/">Népszerű</a></li>
-            <li><a href="/movieList">Megtekintett filmek</a></li>
+            <li><a href="/">Népszerű filmek</a></li>
+            <li><a href="/bestMovieList">Legjobbra értékelt filmek</a></li>
+            <li><a href="/watchedMovieList">Megtekintett filmek</a></li>
             <li><a href="/watchList">Megnézendő filmek</a></li>
         </ul>
     </nav>
