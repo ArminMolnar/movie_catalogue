@@ -9,21 +9,19 @@
 </script>
 
 <a href={`/movieDetails/${movie.id}`} class="movie-card">
-    <div class="movie-card">
-        <div class="poster-container">
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-            <div class="buttons-container">
-                <button class="button add">+</button>
-                <button class="button remove">-</button>
-            </div>
+    <div class="poster-container">
+        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+        <div class="buttons-container">
+            <button class="button add">+</button>
+            <button class="button remove">-</button>
         </div>
-        <div class="movie-info">
-            <h2>{movie.title}
-                <span style="color:gold; font-size: 1rem;">★</span>
-                {movie.vote_average.toFixed(1)}
-            </h2>
-            <p>{movie.release_date}</p>
-        </div>
+    </div>
+    <div class="movie-info">
+        <h2>{movie.title}
+            <span style="color:gold; font-size: 1rem;">★</span>
+            {movie.vote_average.toFixed(1)}
+        </h2>
+        <p>{movie.release_date}</p>
     </div>
 </a>
 
@@ -31,15 +29,16 @@
     .movie-card {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        padding: 1rem;
-        margin-bottom: 1rem;
+        width: 100%;
         text-decoration: none;
-        color:inherit;
+        color: inherit;
+        padding: 1rem;
+        box-sizing: border-box;
     }
 
     .poster-container {
         position: relative;
+        width: 100%;
     }
 
     img {
@@ -47,6 +46,7 @@
         height: 40vh;
         object-fit: cover;
         border-radius: 1rem;
+        display: block;
     }
 
     .buttons-container {
@@ -55,7 +55,7 @@
         right: 5px;
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 3px;
     }
 
     .button {
@@ -72,19 +72,23 @@
     }
 
     .movie-info {
-        height: 5vh;
         text-align: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0;
     }
 
     p {
         font-size: 0.95rem;
         font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         margin-top: 0;
+        margin-bottom: 0;
     }
 
     h2 {
         font-size: 1.15rem;
         font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.1rem;
+        margin-top: 0;
     }
 </style>
+
