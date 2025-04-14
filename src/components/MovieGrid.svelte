@@ -1,22 +1,21 @@
 <script lang="ts">
-    export let movies: Array<{
-        id: number;
-        title: string;
-        poster_path: string;
-        vote_average: number;
-        release_date: string;
-    }> = [];
+    import type {Movie} from "$lib/types";
+
+    export let movies: Movie[];
     export let title: string = "";
 
     import MovieCard from "./MovieCard.svelte";
-    console.log(`${title} movies received:`, movies);
+
+    // Removing duplicates based on ID
+    $: uniqueMovies = movies ? [... new Map(movies.map(movie => [movie.id, movie])).values()] : [];
+
 </script>
 
 <h1>{title}</h1>
 
-{#if movies && movies.length > 0}
+{#if uniqueMovies && uniqueMovies.length > 0}
     <div class="movies-grid">
-        {#each movies as movie (movie.id)}
+        {#each uniqueMovies as movie (movie.id)}
             <MovieCard {movie}/>
         {/each}
     </div>
