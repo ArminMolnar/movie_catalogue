@@ -1,16 +1,17 @@
 <script lang="ts">
     import MovieCard from "../../../components/MovieCard.svelte";
+    import SearchMovies from '../../../components/SearchMovies.svelte';
 
     export let data;
-    const {searchedMovie} = data;
-    console.log('searchedMovie:', searchedMovie);
+    $: searchedMovie = data.searchedMovie;
 </script>
 
-    <div class="searched-movies">
-        {#each searchedMovie as movie}
-            <MovieCard {movie}/>
-        {/each}
-    </div>
+    <SearchMovies/>
+<div class="searched-movies">
+    {#each searchedMovie as movie}
+        <MovieCard {movie}/>
+    {/each}
+</div>
 
 <style>
     .searched-movies {
@@ -20,3 +21,4 @@
         margin-top: 2rem;
     }
 </style>
+
