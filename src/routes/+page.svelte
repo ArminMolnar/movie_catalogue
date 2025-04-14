@@ -1,17 +1,11 @@
 <script lang="ts">
     import SearchMovies from '../components/SearchMovies.svelte';
     import MovieGrid from "../components/MovieGrid.svelte";
+    import type { Movie } from '$lib/types';
 
-    export let data: { popular: Array<{
-            id: number,
-            title: string,
-            poster_path: string,
-            vote_average: number,
-            release_date: string }> };
+    export let data: { popular: Movie[] };
 
-    console.log('Page received data:', data);
     const popular = data.popular;
-    console.log('Popular extracted:', popular);
 </script>
 
 <section>
