@@ -1,34 +1,45 @@
-<script>
-    import { goto } from '$app/navigation';
+<script lang="ts">
+    import {goto} from '$app/navigation';
+    import {searchQuery} from '$lib/stores';
+    import {onDestroy} from 'svelte';
 
-    let searchQuery = '';
+    let timeout: ReturnType<typeof setTimeout> | undefined;
 
-    function performSearch() {
-        goto('/search/' + searchQuery);
-        console.log(searchQuery);
+    function handleSearchInput() {
+        clearTimeout(timeout);
+        if ($searchQuery.trim().length >= 2) {
+            timeout = setTimeout(() => {
+                const encoded = encodeURIComponent($searchQuery.trim());
+                goto(`/search/${encoded}`);
+            }, 500);
+        }
     }
+
+    function clearSearchField() {
+        clearTimeout(timeout);
+        $searchQuery = '';
+    }
+
+    onDestroy(() => {
+        clearTimeout(timeout);
+    });
 </script>
 
-<form on:submit|preventDefault={performSearch} class="search">
-    <label for="search_movie">Film keresése:</label>
-    <input name="search_movie" type="text" bind:value={searchQuery} />
-    <button type="submit">Keresés</button>
-</form>
+<div class="search">
+    <div class="search-container">
+        <input
+                name="search_movie"
+                type="text"
+                placeholder="Keresés..."
+                bind:value={$searchQuery}
+                on:input={handleSearchInput}
+        />
+        <button type="button" class="delete-button" on:click={clearSearchField}>×</button>
+    </div>
+</div>
+
 
 <style>
-    button {
-        background-color: #555555;
-        border: none;
-        color: white;
-        padding: 6px 15px;
-        text-align: center;
-        font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        border-radius: 10px;
-    }
-
     input {
         width: 20%;
         border: none;
@@ -39,11 +50,7 @@
         background: rgb(63, 63, 63);
         border-radius: 10px;
         padding: 0.3rem 0.1rem;
-    }
 
-    label {
-        font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        font-weight: bold;
     }
 
     .search {
