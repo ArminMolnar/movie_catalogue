@@ -1,11 +1,7 @@
 <script lang="ts">
-    export let movie: {
-        id: number;
-        title: string;
-        poster_path: string;
-        vote_average: number;
-        release_date: string;
-    };
+    import type {Movie} from "$lib/types";
+
+    export let movie: Movie;
 </script>
 
 <a href={`/movieDetails/${movie.id}`} class="movie-card">
