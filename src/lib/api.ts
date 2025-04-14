@@ -14,7 +14,6 @@ export async function fetchMovieData(endpoint: string, totalPages: number = 1, l
             }
 
             const data = await response.json();
-            console.log(`Fetched data from ${endpoint}, page ${page}:`, data);
 
             allData = [...allData, ...data.results];
         }
