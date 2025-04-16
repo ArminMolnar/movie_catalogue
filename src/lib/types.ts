@@ -5,5 +5,5 @@ export type Movie = {
     vote_average: number;
     release_date: string;
     overview?: string;
-    searchTerms?: string; // We'll add this for client-side filtering
+    searchTerms?: string;
 };
