@@ -34,7 +34,7 @@
                 bind:value={$searchQuery}
                 on:input={handleSearchInput}
         />
-        <button type="button" class="delete-button" on:click={clearSearchField}>×</button>
+        <button type="button" class="clear-button" on:click={clearSearchField}>×</button>
     </div>
 </div>
 
@@ -56,5 +56,15 @@
     .search {
         margin-top: 1rem;
         text-align: center;
+    }
+
+    .clear-button{
+        background-color: gray;
+        color: white;
+        border-radius: 0.5rem;
+        font-size: 100%;
+        cursor: pointer;
+        line-height: 1.2rem;
+
     }
 </style>
