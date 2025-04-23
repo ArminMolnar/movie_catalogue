@@ -1,10 +1,11 @@
 <script lang="ts">
     import type {Movie} from "$lib/types";
+    import MovieCard from "./MovieCard.svelte";
 
     export let movies: Movie[];
     export let title: string = "";
-
-    import MovieCard from "./MovieCard.svelte";
+    export let inWatchlistView = false;
+    export let inWatchedView = false;
 
     // Removing duplicates based on ID
     $: uniqueMovies = movies ? [... new Map(movies.map(movie => [movie.id, movie])).values()] : [];
@@ -16,7 +17,7 @@
 {#if uniqueMovies && uniqueMovies.length > 0}
     <div class="movies-grid">
         {#each uniqueMovies as movie (movie.id)}
-            <MovieCard {movie}/>
+            <MovieCard {movie} {inWatchlistView} {inWatchedView} />
         {/each}
     </div>
 {:else}
