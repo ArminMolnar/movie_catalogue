@@ -10,6 +10,8 @@
     const best = data.best;
 </script>
 
+<title>Legjobbra értékelt filmek</title>
+
 <section>
     <SearchMovies/>
     <MovieGrid movies={best} title="Legjobbra értékelt filmek"/>
