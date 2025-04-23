@@ -1,6 +1,6 @@
 <script lang="ts">
     import {goto} from '$app/navigation';
-    import {searchQuery} from '$lib/stores';
+    import {searchQuery} from '$lib/stores/searchQueryStore';
     import {onDestroy} from 'svelte';
 
     let timeout: ReturnType<typeof setTimeout> | undefined;

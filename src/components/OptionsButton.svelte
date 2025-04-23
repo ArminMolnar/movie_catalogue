@@ -2,7 +2,7 @@
     import type { MenuItem, Position } from "$lib/types";
     import { onMount } from 'svelte';
     import PopupMenu from './PopupMenu.svelte';
-    import { currentlyOpenMenu } from '$lib/stores';
+    import { currentlyOpenMenu } from '$lib/stores/menuStore';
 
     export let menuId: string;
     export let menuItems: MenuItem[];
@@ -50,17 +50,14 @@
     }
 
     function handleCloseMenu(event: CustomEvent) {
-        const { exceptId } = event.detail;
-        if (exceptId !== menuId && showMenu) {
+        if (event.detail.exceptId !== menuId && showMenu) {
             showMenu = false;
         }
     }
 
     onMount(() => {
         window.addEventListener('close-all-menus', handleCloseMenu as EventListener);
-
-        return () => {
-            window.removeEventListener('close-all-menus', handleCloseMenu as EventListener);
+        return () => { window.removeEventListener('close-all-menus', handleCloseMenu as EventListener);
         };
     });
 
