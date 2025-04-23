@@ -1,25 +1,94 @@
 <script lang="ts">
     import type {Movie} from "$lib/types";
+    import OptionsButton from "./OptionsButton.svelte";
+    import {
+        addToWatchlist,
+        removeFromWatchlist,
+        markAsWatched,
+        isInWatchlist,
+        isWatched,
+        removeFromWatched
+    } from '$lib/stores/movieStore';
 
     export let movie: Movie;
+    export let inWatchlistView = false;
+    export let inWatchedView = false;
+
+    $: isInWatchlistStore = isInWatchlist(movie.id);
+    $: isInWatchedStore = isWatched(movie.id);
+
+    $: menuItems = inWatchlistView
+        ? [
+            {
+                name: 'markAsWatched',
+                onClick: () => markAsWatched(movie),
+                displayText: "Láttam",
+                class: 'fa-solid fa-eye'
+            },
+            { name: 'hr' },
+            {
+                name: 'removeFromWatchlist',
+                onClick: () => removeFromWatchlist(movie.id),
+                displayText: "Eltávolítás a listáról",
+                class: 'fa-solid fa-trash'
+            }
+        ]
+        : inWatchedView
+            ? [
+                {
+                    name: 'removeFromWatched',
+                    onClick: () => removeFromWatched(movie.id),
+                    displayText: "Eltávolítás a listáról",
+                    class: 'fa-solid fa-trash-can'
+                },
+                {name:'hr'},
+                {
+                    name: 'rateMovie',
+                    displayText: "Film értékelése",
+                    class: 'fa-solid fa-star'
+                }
+            ]
+            : [
+                {
+                    name: 'markAsWatched',
+                    onClick: () => markAsWatched(movie),
+                    displayText: isInWatchedStore ? "Már láttam" : "Láttam",
+                    class: isInWatchedStore ? 'fa-solid fa-check' : 'fa-solid fa-eye',
+                    disabled: isInWatchedStore
+                },
+                { name: 'hr' },
+                {
+                    name: 'addToWatchlist',
+                    onClick: () => addToWatchlist(movie),
+                    displayText: isInWatchedStore ? "Megnézném újra" : "Megnézném",
+                    class: 'fa-solid fa-bookmark',
+                    disabled: isInWatchlistStore
+                }
+            ];
 </script>
 
-<a href={`/movieDetails/${movie.id}`} class="movie-card">
-    <div class="poster-container">
-        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-        <div class="buttons-container">
-            <button class="button add">+</button>
-            <button class="button remove">-</button>
+<div class="movie-card-container">
+    <OptionsButton
+            menuId={`menu-${movie.id}`}
+            menuItems={menuItems}
+    />
+
+    <a href={`/movieDetails/${movie.id}`} class="movie-card">
+        <div class="poster-container">
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}/>
         </div>
-    </div>
-    <div class="movie-info">
-        <h2>{movie.title}
-            <span style="color:gold; font-size: 1rem;">★</span>
-            {movie.vote_average.toFixed(1)}
-        </h2>
-        <p>{movie.release_date}</p>
-    </div>
-</a>
+        <div class="movie-info">
+            <h2>
+                {movie.title}
+            </h2>
+            <p> <span style="color:gold; font-size: 1rem;">★</span>
+                {movie.vote_average.toFixed(1)}</p>
+            <p>{movie.release_date}</p>
+
+        </div>
+    </a>
+</div>
+
 
 <style>
     .movie-card {
@@ -37,6 +106,10 @@
         width: 100%;
     }
 
+    .movie-card-container {
+        position: relative;
+    }
+
     img {
         width: 100%;
         height: 40vh;
@@ -45,32 +118,11 @@
         display: block;
     }
 
-    .buttons-container {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-
-    .button {
-        background-color: #007bff;
-        color: white;
-        border: 5px;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
-        cursor: pointer;
-        outline: 1px solid gray;
-        box-shadow: gray 1px 1px 1px;
-    }
-
     .movie-info {
         text-align: center;
         padding-top: 0.5rem;
         padding-bottom: 0;
+        font-weight: bold;
     }
 
     p {
