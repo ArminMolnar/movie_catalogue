@@ -8,6 +8,8 @@
     const popular = data.popular;
 </script>
 
+<title>Népszerű filmek</title>
+
 <section>
     <SearchMovies/>
     <MovieGrid movies={popular} title="Népszerű filmek" />
