@@ -8,7 +8,7 @@
 
     let menu = {h: 0, w: 0};
 
-    function getContextMenuDimension(node: HTMLElement) {
+    function getMenuDimension(node: HTMLElement) {
         menu = {
             h: node.offsetHeight,
             w: node.offsetWidth
@@ -17,7 +17,8 @@
 </script>
 
 {#if show}
-    <nav use:getContextMenuDimension style="position: absolute; top:{pos.y}px; left:{pos.x}px; z-index:1000;">
+    <nav use:getMenuDimension
+         style="position: absolute; top:{pos.y}px; left:{pos.x}px; z-index:1000;">
         <div class="navbar" id="navbar">
             <ul>
                 {#each menuItems as item}
@@ -25,7 +26,9 @@
                         <hr>
                     {:else}
                         <li>
-                            <button on:click={() => { item.onClick?.(); close(); }}>
+                            <button on:click={() => {
+                                item.onClick?.();
+                                close(); }}>
                                 <i class={item.class}></i>{item.displayText}
                             </button>
                         </li>
