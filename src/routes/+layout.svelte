@@ -1,3 +1,15 @@
+<script lang="ts">
+
+    import { onMount } from 'svelte';
+    import { initializeStores } from '$lib/stores/movieStore';
+
+    onMount(() => {
+        initializeStores();
+    });
+
+</script>
+
+
 <style>
 
     :global(body){
@@ -9,13 +21,13 @@
         background-color: gray;
         border-radius: 12px;
         padding-bottom: 1rem;
-        overflow: hidden;
+        overflow: visible;
         padding-top: 0;
 
     }
 
     .navbar {
-        width: 60%;
+        width: 70%;
         background-color: #333;
         border-radius: 0 0 12px 12px;
         margin: auto;
@@ -37,7 +49,7 @@
         flex: 1;
         font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         border-right: 1px solid #666;
-
+        font-weight: bold;
     }
 
     .navbar ul li a {
