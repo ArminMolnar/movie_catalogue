@@ -1,64 +1,150 @@
-import { writable, get } from 'svelte/store';
-import { browser } from '$app/environment';
+import {writable, get} from 'svelte/store';
+import type {Movie} from "$lib/types";
 
+export const watchlist = writable<number[]>([]);
+export const watchedMovies = writable<number[]>([]);
 
-const storedWatchlist = browser ?
-    JSON.parse(localStorage.getItem('watchlist') || '[]') :
-    [];
+export async function loadWatchlistFromDb() {
+    try {
+        const response = await fetch('/api/watchlist');
+        if (!response.ok) throw new Error('Failed to fetch watchlist');
 
-const storedWatchedMovies = browser ?
-    JSON.parse(localStorage.getItem('watchedMovies') || '[]') :
-    [];
+        const data = await response.json();
+        const movieIds = data.map((item: { movieId: any; }) => item.movieId);
+        watchlist.set(movieIds);
 
+        return data;
+    } catch (error) {
+        console.error('Error loading watchlist:', error);
+        return [];
+    }
+}
 
-export const watchlist = writable<number[]>(storedWatchlist);
-export const watchedMovies = writable<number[]>(storedWatchedMovies);
+export async function loadWatchedMoviesFromDb() {
+    try {
+        const response = await fetch('/api/watchedMovieList');
+        if (!response.ok) throw new Error('Failed to fetch watched movies');
 
+        const data = await response.json();
+        const movieIds = data.map((item: { movieId: number }) => item.movieId);
+        watchedMovies.set(movieIds);
 
-if (browser) {
-    watchlist.subscribe(value => {
-        localStorage.setItem('watchlist', JSON.stringify(value));
-    });
-
-    watchedMovies.subscribe(value => {
-        localStorage.setItem('watchedMovies', JSON.stringify(value));
-    });
+        return data;
+    } catch (error) {
+        console.error('Error loading watched movies:', error);
+        return [];
+    }
 }
 
 
-export function addToWatchlist(movieId: number) {
-    watchlist.update(list => {
-        if (!list.includes(movieId)) {
-            return [...list, movieId];
+export async function addToWatchlist(movie: Movie) {
+    try {
+        const response = await fetch('/api/watchlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            watchlist.update(ids => {
+                if (!ids.includes(movie.id)) {
+                    return [...ids, movie.id];
+                }
+                return ids;
+            });
         }
-        return list;
-    });
+
+        return result;
+    } catch (error) {
+        console.error('Error adding to watchlist:', error);
+        return {success: false, message: 'Failed to add movie to watchlist'};
+    }
 }
 
-export function removeFromWatchlist(movieId: number) {
-    watchlist.update(list => list.filter(id => id !== movieId));
+export async function removeFromWatchlist(movieId: number) {
+    try {
+        const response = await fetch(`/api/watchlist/${movieId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            watchlist.update(list => list.filter(id => id !== movieId));
+        }
+
+        return result;
+    } catch (error) {
+        console.error('Error removing from watchlist:', error);
+        return {success: false, message: 'Failed to remove movie from watchlist'};
+    }
 }
 
 export function isInWatchlist(movieId: number): boolean {
     return get(watchlist).includes(movieId);
 }
 
+export async function markAsWatched(movie: any) {
+    try {
+        const response = await fetch('/api/watchedMovieList', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
+        });
 
-export function markAsWatched(movieId: number) {
-    watchedMovies.update(list => {
-        if (!list.includes(movieId)) {
-            return [...list, movieId];
+        const result = await response.json();
+
+        if (result.success) {
+            watchedMovies.update(ids => {
+                if (!ids.includes(movie.id)) {
+                    return [...ids, movie.id];
+                }
+                return ids;
+            });
+
+            await removeFromWatchlist(movie.id);
         }
-        return list;
-    });
 
-    removeFromWatchlist(movieId);
+        return result;
+    } catch (error) {
+        console.error('Error marking as watched:', error);
+        return {success: false, message: 'Failed to mark movie as watched'};
+    }
 }
 
-export function removeFromWatched(movieId: number) {
-    watchedMovies.update(list => list.filter(id => id !== movieId));
+
+export async function removeFromWatched(movieId: number) {
+    try {
+        const response = await fetch(`/api/watchedMovieList/${movieId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            watchedMovies.update(list => list.filter(id => id !== movieId));
+        }
+
+        return result;
+    } catch (error) {
+        console.error('Error removing from watched list:', error);
+        return {success: false, message: 'Failed to remove movie from watched list'};
+    }
 }
 
 export function isWatched(movieId: number): boolean {
     return get(watchedMovies).includes(movieId);
+}
+
+export async function initializeStores() {
+    await Promise.all([
+        loadWatchlistFromDb(),
+        loadWatchedMoviesFromDb()
+    ]);
 }
