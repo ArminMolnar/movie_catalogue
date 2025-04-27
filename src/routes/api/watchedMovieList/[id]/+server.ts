@@ -5,12 +5,10 @@ export async function DELETE({ params }) {
     try {
         const movieId = parseInt(params.id);
 
-        await prisma.watchedMovieItem.deleteMany({
-            where: {
-                movieId: movieId,
-                userId: 'default-user'
-            }
-        });
+        await prisma.$transaction([
+            prisma.watchedMovieItem.deleteMany({ where: { movieId } }),
+            prisma.movieRating.deleteMany({ where: { movieId } })
+        ]);
 
         return json({ success: true });
     } catch (error) {
