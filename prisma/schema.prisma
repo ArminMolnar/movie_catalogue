@@ -38,3 +38,9 @@ model WatchedMovieItem {
   watchedAt   DateTime @default(now())
 }
 
+model MovieRating {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  movieId  Int     @unique
+  rating   Int
+}
+
