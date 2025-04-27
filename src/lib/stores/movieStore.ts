@@ -1,5 +1,5 @@
 import {writable, get} from 'svelte/store';
-import type {Movie} from "$lib/types";
+import type {Movie} from "$lib/types/movie";
 
 export const watchlist = writable<number[]>([]);
 export const watchedMovies = writable<number[]>([]);
