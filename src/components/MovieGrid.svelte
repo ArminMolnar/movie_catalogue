@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {Movie} from "$lib/types";
+    import type {Movie} from "$lib/types/movie";
     import MovieCard from "./MovieCard.svelte";
 
     export let movies: Movie[];
@@ -8,8 +8,7 @@
     export let inWatchedView = false;
 
     // Removing duplicates based on ID
-    $: uniqueMovies = movies ? [... new Map(movies.map(movie => [movie.id, movie])).values()] : [];
-
+    $: uniqueMovies = movies ? [...new Map(movies.map(movie => [movie.id, movie])).values()] : [];
 </script>
 
 <h1>{title}</h1>
@@ -25,15 +24,14 @@
 {/if}
 
 <style>
+    h1 {
+        text-align: center;
+        font-family: system-ui, -apple-system, sans-serif;
+    }
+
     .movies-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        grid-column-gap: 1rem;
-        grid-row-gap: 1rem;
-    }
-
-    h1 {
-        text-align: center;
-        font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        gap: 1rem;
     }
 </style>

@@ -2,22 +2,40 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import {prisma} from '$lib/server/db';
 
+export const GET: RequestHandler = async () => {
+    try {
+        const watchList = await prisma.watchlistItem.findMany({
+            where: {
+                userId: 'default-user'
+            },
+            orderBy: {
+                addedAt: 'desc'
+            }
+        });
+
+        return json(watchList);
+    } catch (error) {
+        console.error('Error fetching watchlist:', error);
+        return json({ message: 'Failed to fetch watchlist' }, { status: 500 });
+    }
+};
+
 export const POST: RequestHandler = async ({ request }) => {
     try {
         const movie = await request.json();
 
-        const existingMovie = await prisma.watchlistItem.findFirst({
+        const exists = await prisma.watchlistItem.findFirst({
             where: {
                 movieId: movie.id,
                 userId: 'default-user'
             }
         });
 
-        if (existingMovie) {
+        if (exists) {
             return json({ success: false, message: 'Movie already in watchlist' });
         }
 
-        const watchlistItem = await prisma.watchlistItem.create({
+        const watchListMovie = await prisma.watchlistItem.create({
             data: {
                 movieId: movie.id,
                 title: movie.title,
@@ -29,27 +47,9 @@ export const POST: RequestHandler = async ({ request }) => {
             }
         });
 
-        return json({ success: true, data: watchlistItem });
+        return json({ success: true, data: watchListMovie });
     } catch (error) {
         console.error('Error adding movie to watchlist:', error);
         return json({ success: false, message: 'Failed to add movie to watchlist' }, { status: 500 });
-    }
-};
-
-export const GET: RequestHandler = async () => {
-    try {
-        const watchlist = await prisma.watchlistItem.findMany({
-            where: {
-                userId: 'default-user'
-            },
-            orderBy: {
-                addedAt: 'desc'
-            }
-        });
-
-        return json(watchlist);
-    } catch (error) {
-        console.error('Error fetching watchlist:', error);
-        return json({ message: 'Failed to fetch watchlist' }, { status: 500 });
     }
 };
