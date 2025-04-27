@@ -12,7 +12,6 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"postinstall": "prisma generate"
 	},
-
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/kit": "^2.16.0",
@@ -24,6 +23,7 @@
 		"vite": "^6.2.5"
 	},
 	"dependencies": {
+		"@agnos-ui/svelte-headless": "^0.8.0",
 		"@prisma/client": "^6.6.0",
 		"mongodb": "^6.16.0"
 	}
