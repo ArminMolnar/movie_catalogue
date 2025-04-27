@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {Position, MenuItem} from "$lib/types";
+    import type {Position, MenuItem} from "$lib/types/optionsButton";
 
     export let show: boolean = false;
     export let pos: Position = {x: 0, y: 0};
@@ -19,7 +19,7 @@
 {#if show}
     <nav use:getMenuDimension
          style="position: absolute; top:{pos.y}px; left:{pos.x}px; z-index:1000;">
-        <div class="navbar" id="navbar">
+        <div class="navbar">
             <ul>
                 {#each menuItems as item}
                     {#if item.name === "hr"}
@@ -40,29 +40,24 @@
 {/if}
 
 <style>
-
     .navbar {
-        display: inline-flex;
-        border: 1px dimgray solid;
+        border: 1px solid dimgray;
         width: 250px;
         background-color: #fff;
         border-radius: 10px;
         overflow: hidden;
-        flex-direction: column;
     }
 
-    .navbar ul {
+    ul {
         margin: 6px;
-        padding-left: 0;
+        padding: 0;
     }
 
-    ul li {
-        display: block;
+    li {
         list-style-type: none;
-        width: 1fr;
     }
 
-    ul li button {
+    button {
         font-size: 1rem;
         color: #222;
         width: 100%;
@@ -72,15 +67,16 @@
         background-color: white;
     }
 
-    ul li button:hover {
-        color: black;
-        text-align: left;
-        border-radius: 5px;
+    button:hover {
         background-color: #eee;
+        border-radius: 5px;
     }
 
-    ul li button i {
-        padding: 0 5px 0 5px;
+    i {
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+        margin-right: 10px;
     }
 
     hr {
