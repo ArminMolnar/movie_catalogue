@@ -1,16 +1,18 @@
 <script lang="ts">
     import SearchMovies from '../components/SearchMovies.svelte';
     import MovieGrid from "../components/MovieGrid.svelte";
-    import type { Movie } from '$lib/types';
+    import SectionTitle from "../components/SectionTitle.svelte";
+    import type { Movie } from '$lib/types/movie';
 
     export let data: { popular: Movie[] };
-
     const popular = data.popular;
 </script>
 
-<title>Népszerű filmek</title>
+<title>Főoldal</title>
 
 <section>
+    <SectionTitle title={"Most népszerű filmek"}></SectionTitle>
     <SearchMovies/>
-    <MovieGrid movies={popular} title="Népszerű filmek" />
+    <MovieGrid movies={popular}/>
 </section>
+
