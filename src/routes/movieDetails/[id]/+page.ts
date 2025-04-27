@@ -1,4 +1,4 @@
-import { fetchMovie, fetchMovieCredits } from '$lib/api';
+import { fetchMovie, fetchMovieCredits } from '$lib/api/movie';
 
 export async function load({ params }) {
     try {

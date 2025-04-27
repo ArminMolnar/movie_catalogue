@@ -3,13 +3,13 @@ import {prisma} from '$lib/server/db';
 
 export async function GET() {
     try {
-        const watchedMovies = await prisma.watchedMovieItem.findMany({
+        const watchedMoviesList = await prisma.watchedMovieItem.findMany({
             orderBy: {
                 watchedAt: 'desc'
             }
         });
 
-        return json(watchedMovies);
+        return json(watchedMoviesList);
     } catch (error) {
         console.error('Error fetching watched movies:', error);
         return json({ message: 'Failed to fetch watched movies' }, { status: 500 });
@@ -20,14 +20,14 @@ export async function POST({ request }) {
     try {
         const movie = await request.json();
 
-        const existingMovie = await prisma.watchedMovieItem.findFirst({
+        const exists = await prisma.watchedMovieItem.findFirst({
             where: {
                 movieId: movie.id,
                 userId: 'default-user'
             }
         });
 
-        if (existingMovie) {
+        if (exists) {
             return json({ success: false, message: 'Movie already marked as watched' });
         }
 

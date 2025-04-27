@@ -1,8 +1,8 @@
-import {fetchMovies} from '$lib/api';
+import {fetchMovies} from '$lib/api/movie';
 
 export async function load() {
     try {
-        const bestMovies = await fetchMovies('/movie/top_rated', 2);
+        const bestMovies = await fetchMovies('/top_rated', 2);
 
         return {
             best: bestMovies

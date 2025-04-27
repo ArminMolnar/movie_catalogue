@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { MenuItem, Position } from "$lib/types";
+    import type { MenuItem, Position } from "$lib/types/optionsButton";
     import { onMount } from 'svelte';
     import PopupMenu from './PopupMenu.svelte';
     import { currentlyOpenMenu } from '$lib/stores/menuStore';
@@ -57,21 +57,17 @@
 
     onMount(() => {
         window.addEventListener('close-all-menus', handleCloseMenu as EventListener);
-        return () => { window.removeEventListener('close-all-menus', handleCloseMenu as EventListener);
+        return () => {
+            window.removeEventListener('close-all-menus', handleCloseMenu as EventListener);
         };
     });
-
 
 </script>
 
 <svelte:window on:click={handleWindowClick}/>
 
-<div class="button-container" bind:this={buttonContainer} style="position: relative;">
-    <button
-            class="options"
-            bind:this={optionsButton}
-            on:click={openMenu}
-    >
+<div class="button-container" bind:this={buttonContainer}>
+    <button class="options" bind:this={optionsButton} on:click={openMenu}>
         ...
     </button>
 
@@ -98,11 +94,11 @@
         z-index: 100;
         background-color: darkslategray;
         color: white;
-        border: none;
-        border-radius: 50%;
         width: 30px;
         height: 30px;
         font-size: 18px;
+        border: none;
+        border-radius: 50%;
         cursor: pointer;
         outline: 1px solid gray;
         box-shadow: gray 1px 1px 1px;
