@@ -48,7 +48,7 @@
 </div>
 
 <style>
-    .empty-list {
+    .empty-list, .error {
         text-align: center;
         font-weight: 600;
     }

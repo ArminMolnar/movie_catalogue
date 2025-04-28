@@ -20,13 +20,18 @@
         {/each}
     </div>
 {:else}
-    <p>No movies available.</p>
+    <div class="error"><p>Error loading movies.</p></div>
 {/if}
 
 <style>
     h1 {
         text-align: center;
         font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .error{
+        text-align: center;
+        font-weight: 600;
     }
 
     .movies-grid {
