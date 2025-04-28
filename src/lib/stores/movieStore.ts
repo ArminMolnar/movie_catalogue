@@ -4,7 +4,7 @@ import type {Movie} from "$lib/types/movie";
 export const watchlist = writable<number[]>([]);
 export const watchedMovies = writable<number[]>([]);
 
-export async function loadWatchlistFromDb() {
+export async function loadWatchlist() {
     try {
         const response = await fetch('/api/watchlist');
         if (!response.ok) throw new Error('Failed to fetch watchlist');
@@ -20,7 +20,7 @@ export async function loadWatchlistFromDb() {
     }
 }
 
-export async function loadWatchedMoviesFromDb() {
+export async function loadWatchedMovies() {
     try {
         const response = await fetch('/api/watchedMovieList');
         if (!response.ok) throw new Error('Failed to fetch watched movies');
@@ -136,7 +136,7 @@ export async function removeFromWatched(movieId: number) {
 
 export async function initializeStores() {
     await Promise.all([
-        loadWatchlistFromDb(),
-        loadWatchedMoviesFromDb()
+        loadWatchlist(),
+        loadWatchedMovies()
     ]);
 }
