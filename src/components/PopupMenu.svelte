@@ -4,7 +4,7 @@
     export let show: boolean = false;
     export let pos: Position = {x: 0, y: 0};
     export let menuItems: MenuItem[] = [];
-    export let close: () => void;
+    export let close = () => {};
 
     let menu = {h: 0, w: 0};
 
