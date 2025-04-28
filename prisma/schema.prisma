@@ -22,7 +22,6 @@ model WatchlistItem {
   voteAverage   Float
   releaseDate   String
   overview      String?
-  userId        String
   addedAt   DateTime @default(now())
 }
 
@@ -34,7 +33,6 @@ model WatchedMovieItem {
   voteAverage   Float
   releaseDate   String
   overview      String?
-  userId        String
   watchedAt   DateTime @default(now())
 }
 
