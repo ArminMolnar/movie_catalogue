@@ -7,8 +7,7 @@ export async function DELETE({ params }) {
 
         await prisma.watchlistItem.deleteMany({
             where: {
-                movieId: movieId,
-                userId: 'default-user'
+                movieId: movieId
             }
         });
 

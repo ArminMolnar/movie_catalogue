@@ -23,7 +23,9 @@ export async function POST({ request }) {
         const exists = await prisma.watchedMovieItem.findFirst({
             where: {
                 movieId: movie.id,
-                userId: 'default-user'
+            }
+            ,orderBy: {
+                watchedAt: 'asc'
             }
         });
 
@@ -38,8 +40,7 @@ export async function POST({ request }) {
                 posterPath: movie.poster_path || '',
                 voteAverage: movie.vote_average || 0,
                 releaseDate: movie.release_date || '',
-                overview: movie.overview || '',
-                userId: 'default-user',
+                overview: movie.overview || ''
             }
         });
 

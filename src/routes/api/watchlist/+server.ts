@@ -5,9 +5,6 @@ import {prisma} from '$lib/server/db';
 export const GET: RequestHandler = async () => {
     try {
         const watchList = await prisma.watchlistItem.findMany({
-            where: {
-                userId: 'default-user'
-            },
             orderBy: {
                 addedAt: 'desc'
             }
@@ -26,8 +23,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
         const exists = await prisma.watchlistItem.findFirst({
             where: {
-                movieId: movie.id,
-                userId: 'default-user'
+                movieId: movie.id
             }
         });
 
@@ -42,8 +38,7 @@ export const POST: RequestHandler = async ({ request }) => {
                 posterPath: movie.poster_path || '',
                 voteAverage: movie.vote_average || 0,
                 releaseDate: movie.release_date || '',
-                overview: movie.overview || '',
-                userId: 'default-user',
+                overview: movie.overview || ''
             }
         });
 
