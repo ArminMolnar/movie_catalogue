@@ -8,7 +8,7 @@
 
 ```bash
 
-git clone <https://github.com/ArminMolnar/movie_catalogue.git>
+git clone https://github.com/ArminMolnar/movie_catalogue.git
 cd movie_catalogue
 npm install
 ```
