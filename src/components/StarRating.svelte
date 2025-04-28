@@ -2,7 +2,7 @@
     import {createRating, type RatingProps} from '@agnos-ui/svelte-headless';
     import {callWidgetFactory} from '@agnos-ui/svelte-headless/config';
 
-    let {rating = $bindable(), ...props}: Pick<Partial<RatingProps>, 'rating' | 'maxRating' | 'className' | 'onHover' | 'ariaLabel'> = $props();
+    let { rating = $bindable(), ...props } = $props();
 
     const {
         state,

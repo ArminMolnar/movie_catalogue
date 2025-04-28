@@ -1,4 +1,4 @@
-import {writable, get} from 'svelte/store';
+import {writable} from 'svelte/store';
 import type {Movie} from "$lib/types/movie";
 
 export const watchlist = writable<number[]>([]);
@@ -84,10 +84,6 @@ export async function removeFromWatchlist(movieId: number) {
     }
 }
 
-export function isInWatchlist(movieId: number): boolean {
-    return get(watchlist).includes(movieId);
-}
-
 export async function markAsWatched(movie: any) {
     try {
         const response = await fetch('/api/watchedMovieList', {
@@ -136,10 +132,6 @@ export async function removeFromWatched(movieId: number) {
         console.error('Error removing from watched list:', error);
         return {success: false, message: 'Failed to remove movie from watched list'};
     }
-}
-
-export function isWatched(movieId: number): boolean {
-    return get(watchedMovies).includes(movieId);
 }
 
 export async function initializeStores() {
