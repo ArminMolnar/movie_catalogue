@@ -14,9 +14,9 @@
     <nav class="navbar">
         <ul>
             <li><a href="/">Főoldal</a></li>
-            <li><a href="/bestMovieList">Legjobbra értékelt filmek</a></li>
-            <li><a href="/watchedMovieList">Megtekintett filmek</a></li>
-            <li><a href="/watchList">Megnézendő filmek</a></li>
+            <li><a href="/movies/bestMovieList">Legjobbra értékelt filmek</a></li>
+            <li><a href="/movies/watchedMovieList">Megtekintett filmek</a></li>
+            <li><a href="/movies/watchList">Megnézendő filmek</a></li>
         </ul>
     </nav>
     <slot />
