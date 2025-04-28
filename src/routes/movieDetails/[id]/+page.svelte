@@ -214,16 +214,4 @@
         max-width: 160px;
         font-style: italic;
     }
-
-    @media (max-width: 768px) {
-        .cast-list {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    @media (max-width: 480px) {
-        .cast-list {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
 </style>
