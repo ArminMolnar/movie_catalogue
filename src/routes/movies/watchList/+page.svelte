@@ -1,10 +1,10 @@
 <script lang="ts">
     import { watchlist } from '$lib/stores/movieStore';
-    import MovieGrid from '../../components/MovieGrid.svelte';
+    import MovieGrid from '../../../components/MovieGrid.svelte';
     import type { Movie } from '$lib/types/movie';
     import {fetchMovie} from '$lib/api/movie';
-    import HomeButton from "../../components/HomeButton.svelte";
-    import SectionTitle from "../../components/SectionTitle.svelte";
+    import HomeButton from "../../../components/HomeButton.svelte";
+    import SectionTitle from "../../../components/SectionTitle.svelte";
 
     let watchlistMovies: Movie[] = [];
     let error: string | null = null;
