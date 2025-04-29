@@ -9,7 +9,6 @@ export const GET: RequestHandler = async () => {
                 addedAt: 'desc'
             }
         });
-
         return json(watchList);
     } catch (error) {
         console.error('Error fetching watchlist:', error);
@@ -38,7 +37,8 @@ export const POST: RequestHandler = async ({ request }) => {
                 posterPath: movie.poster_path || '',
                 voteAverage: movie.vote_average || 0,
                 releaseDate: movie.release_date || '',
-                overview: movie.overview || ''
+                overview: movie.overview || '',
+                addedAt: new Date()
             }
         });
 

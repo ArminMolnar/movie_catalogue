@@ -24,9 +24,6 @@ export async function POST({ request }) {
             where: {
                 movieId: movie.id,
             }
-            ,orderBy: {
-                watchedAt: 'asc'
-            }
         });
 
         if (exists) {
@@ -40,7 +37,8 @@ export async function POST({ request }) {
                 posterPath: movie.poster_path || '',
                 voteAverage: movie.vote_average || 0,
                 releaseDate: movie.release_date || '',
-                overview: movie.overview || ''
+                overview: movie.overview || '',
+                watchedAt: new Date()
             }
         });
 

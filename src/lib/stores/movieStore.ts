@@ -56,6 +56,7 @@ export async function addToWatchlist(movie: Movie) {
                 }
                 return ids;
             });
+            await loadWatchlist();
         }
 
         return result;
@@ -103,7 +104,7 @@ export async function markAsWatched(movie: any) {
                 }
                 return ids;
             });
-
+            await loadWatchedMovies();
             await removeFromWatchlist(movie.id);
         }
 
@@ -128,6 +129,7 @@ export async function removeFromWatched(movieId: number) {
         }
 
         return result;
+
     } catch (error) {
         console.error('Error removing from watched list:', error);
         return {success: false, message: 'Failed to remove movie from watched list'};
