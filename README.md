@@ -155,4 +155,8 @@ A főoldal vagy a legjobbra értékelt filmek oldal megnyitásakor:
 - minden sikeres művelet során frissül a megfelelő store (watchlist, watchedMovies)
 - mivel a komponensek figyelik a store-okat (\$watchlist, \$watchedMovies használatával), így a felhasználói felület automatikusan frissül, amikor változás történik
 
+<img width="1421" height="850" alt="moviecatalogue" src="https://github.com/user-attachments/assets/df0ac1e6-55e8-4912-b853-dc42a7e19be1" />
+<img width="1063" height="838" alt="moviecatalogue_details" src="https://github.com/user-attachments/assets/f0e8c1d4-b62c-43da-886c-73ef62747f21" />
+<img width="1093" height="682" alt="moviecatalogue_rating" src="https://github.com/user-attachments/assets/d8bd0627-2a1b-4378-961e-30db31da5306" />
+
 
